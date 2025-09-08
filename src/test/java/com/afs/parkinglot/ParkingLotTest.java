@@ -127,7 +127,7 @@ class ParkingLotTest {
         assertEquals("unrecognized parking ticket", message);
     }
 
-    //story3:case1- Given a parking log, and a car, When park car and parking log without position, Then return no available position message
+    //story2:case3- Given a parking log, and a car, When park car and parking log without position, Then return no available position message
     @Test
     void should_return_no_available_position_ticket_message_when_park_car_and_parking_log_without_position_given_a_parking_log_and_a_car() {
         //Given

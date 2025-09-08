@@ -1,6 +1,8 @@
 package com.afs.parkinglot;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -185,5 +187,21 @@ class ParkingLotTest {
         assertEquals(car2, pickUpCar2);
         assertEquals(null, parkingBoy.fetchCar(ticket1));
         assertEquals(null, parkingBoy.fetchCar(ticket2));
+    }
+
+    // Given: two parking lots, and a parking boy; When first parking lot is full; Then park car to second parking lot;
+    @Test
+    void should_park_car_to_second_parking_lot_when_first_parking_lot_is_full_given_two_parking_lots_and_a_parking_boy(){
+        //Given
+        ParkingBoy parkingBoy = new ParkingBoy();
+        parkingBoy.setParkingLot(Arrays.asList(new ParkingLot(1), new ParkingLot(2)));
+        Car car = new Car("123");
+        Car car2 = new Car("456");
+        ParkingTicket carParkingTicket = parkingBoy.parkCar(car);
+        //When
+        ParkingTicket car2ParkingTicket = parkingBoy.parkCar(car2);
+        //Then
+        assertEquals(car, parkingBoy.getParkingLot().get(0).getTicketCars().get(carParkingTicket));
+        assertEquals(car2, parkingBoy.getParkingLot().get(1).getTicketCars().get(car2ParkingTicket));
     }
 }

@@ -30,6 +30,10 @@ public class ParkingLot {
         this.capacity = CAPACITY;
     }
 
+    public ParkingLot(Integer capacity) {
+        this.capacity = capacity;
+    }
+
     public ParkingTicket parkCar(Car car) {
         if (this.ticketCars.size() + 1 > this.capacity) {
             setNotifyMessage("no available position message");
@@ -50,5 +54,13 @@ public class ParkingLot {
         }
         setNotifyMessage("unrecognized parking ticket");
         return null;
+    }
+
+    public Map<ParkingTicket, Car> getTicketCars() {
+        return ticketCars;
+    }
+
+    public void setTicketCars(Map<ParkingTicket, Car> ticketCars) {
+        this.ticketCars = ticketCars;
     }
 }

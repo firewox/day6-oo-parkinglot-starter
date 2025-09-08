@@ -151,7 +151,7 @@ class ParkingLotTest {
         //When
         ParkingTicket ticket = parkingBoy.parkCar(car);
         //Then
-        ParkingTicket parkingTicket = new ParkingTicket(car, 1, parkingBoy.getParkingLot());
+        ParkingTicket parkingTicket = new ParkingTicket(car, 1, parkingBoy.getParkingLot().get(0));
         assertEquals(parkingTicket,ticket);
     }
 
@@ -175,8 +175,8 @@ class ParkingLotTest {
         ParkingBoy parkingBoy = new ParkingBoy();
         Car car1 = new Car("123");
         Car car2 = new Car("456");
-        ParkingTicket ticket1 = new ParkingTicket(car1, 1, parkingBoy.getParkingLot());
-        ParkingTicket ticket2 = new ParkingTicket(car2, 2, parkingBoy.getParkingLot());
+        ParkingTicket ticket1 = new ParkingTicket(car1, 1, parkingBoy.getParkingLot().get(0));
+        ParkingTicket ticket2 = new ParkingTicket(car2, 2, parkingBoy.getParkingLot().get(0));
         parkingBoy.parkCar(car1);
         parkingBoy.parkCar(car2);
         //When

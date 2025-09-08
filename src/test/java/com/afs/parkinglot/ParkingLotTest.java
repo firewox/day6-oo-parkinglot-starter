@@ -139,4 +139,19 @@ class ParkingLotTest {
         assertNull(parkingTicket);
         assertEquals("no available position message", message);
     }
+
+    //story3：case1- Given a parking log, and a car, and a parking boy, When park car, Then return a parking ticket
+    @Test
+    void should_return_a_parking_ticket_when_park_car_given_a_parking_log_and_a_car_and_a_parking_boy() {
+        //Given
+        Car car = new Car("123");
+        ParkingBoy parkingBoy = new ParkingBoy();
+        //When
+        ParkingTicket ticket = parkingBoy.parkCar(car);
+        //Then
+        ParkingTicket parkingTicket = new ParkingTicket(car, 1, parkingBoy.getParkingLot());
+        assertEquals(parkingTicket,ticket);
+    }
+
+
 }

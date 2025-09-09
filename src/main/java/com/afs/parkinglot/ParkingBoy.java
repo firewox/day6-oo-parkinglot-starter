@@ -6,50 +6,34 @@ import java.util.List;
 import java.util.Objects;
 
 public class ParkingBoy {
-    private final ParkingLot PARKINGLOT = new ParkingLot();
     private List<ParkingLot> parkingLot;
-    private Car car;
     private String notifyMessage;
 
     public ParkingBoy() {
-        if (Objects.isNull(this.parkingLot)) {
-            this.parkingLot = new ArrayList<>(Collections.singleton(PARKINGLOT));
-        }
+        this.parkingLot = Collections.singletonList(new ParkingLot());
     }
 
-    public ParkingBoy(Car car, ParkingLot parkingLot) {
+    public ParkingBoy(List<ParkingLot> parkingLot) {
+        this.parkingLot = parkingLot;
+    }
+
+    public ParkingBoy(ParkingLot parkingLot) {
         this.parkingLot.add(parkingLot);
-        this.car = car;
-    }
-
-    public ParkingBoy(Car car) {
-        if (Objects.isNull(this.parkingLot)) {
-            this.parkingLot.add(PARKINGLOT);
-        }
-        this.car = car;
-    }
-
-
-    public ParkingTicket parkCar() {
-        if (Objects.isNull(this.car)) {
-            this.notifyMessage = "no car";
-            return null;
-        }
-        ParkingLot parkingLot1 = this.parkingLot.stream().filter(lot ->
-                lot.getTicketCars().size() + 1 <= lot.getCapacity()
-        ).findFirst().orElse(null);
-        return parkingLot1 != null ? parkingLot1.parkCar(this.car) : null;
     }
 
     public ParkingTicket parkCar(Car car) {
         if (Objects.isNull(car)) {
-            this.notifyMessage = "no car";
+            this.notifyMessage = "car is empty";
             return null;
         }
         ParkingLot parkingLot1 = this.parkingLot.stream().filter(lot ->
                 lot.getTicketCars().size() + 1 <= lot.getCapacity()
         ).findFirst().orElse(null);
-        return parkingLot1 != null ? parkingLot1.parkCar(car) : null;
+        if (Objects.isNull(parkingLot1)) {
+            this.notifyMessage = "no available position message";
+            return null;
+        }
+        return parkingLot1.parkCar(car);
     }
 
     public Car fetchCar(ParkingTicket parkingTicket) {
@@ -57,7 +41,7 @@ public class ParkingBoy {
             return lot.getTicketCars().containsKey(parkingTicket);
         }).findFirst().orElse(null);
         if (Objects.isNull(currentParkingLot)) {
-            this.notifyMessage = "no existing car";
+            this.notifyMessage = "unrecognized parking ticket";
             return null;
         }
         return currentParkingLot.fetchCar(parkingTicket);
